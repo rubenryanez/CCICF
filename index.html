@@ -175,10 +175,22 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
 }
 .opinion-box p{font-size:13px;line-height:1.7;color:var(--slate);margin-bottom:8px}
 .opinion-points{list-style:none;margin-top:4px}
-.opinion-points li{font-size:13px;color:var(--slate);padding:8px 0;border-bottom:1px solid var(--line2);
-  display:flex;gap:10px;align-items:flex-start;line-height:1.6}
+.opinion-points li{
+  padding:10px 0;border-bottom:1px solid var(--line2);line-height:1;
+}
 .opinion-points li:last-child{border-bottom:none}
-.opinion-points li::before{content:'→';color:var(--ink);flex-shrink:0;margin-top:2px;font-weight:700}
+.opinion-points li .op-label{
+  display:flex;align-items:center;gap:7px;
+  font-size:10px;font-weight:800;letter-spacing:.8px;color:var(--ink);
+  text-transform:uppercase;margin-bottom:5px;
+}
+.opinion-points li .op-label::before{
+  content:'→';color:var(--lv-red);font-size:12px;font-weight:800;flex-shrink:0;
+}
+.opinion-points li .op-text{
+  font-size:13px;color:var(--slate);line-height:1.7;
+  padding-left:19px;
+}
 
 /* Retornos de mercado */
 .retornos-chart-wrap{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:20px}
@@ -727,9 +739,18 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
     <h3>💡 Nuestra Opinión — Equipo de Inversiones LVAM · Junio 2026</h3>
     <p>Los mercados globales han interiorizado la volatilidad del conflicto en Medio Oriente y han comenzado a desacoplarse de la macroeconomía. Los avances en las negociaciones entre EE.UU. e Irán durante mayo acercaron al mercado a la expectativa de resolución, permitiendo una fuerte corrección en el petróleo Brent.</p>
     <ul class="opinion-points">
-      <li><strong>Renta fija chilena:</strong> Los fondos se han posicionado en duraciones intermedias y han <strong>disminuido la exposición a UF</strong> en los últimos dos meses, dado que observan menores presiones inflacionarias que las que el mercado tiene internalizadas. La cartera mantiene exposición a instrumentos reajustables.</li>
-      <li><strong>Renta variable:</strong> Mantenemos sobreponderación en los fondos dinámicos, <strong>favoreciendo acciones tecnológicas en Estados Unidos y Asia Emergente</strong>. El entorno macroeconómico global y los fundamentales corporativos siguen favoreciendo la toma de riesgo.</li>
-      <li><strong>Ajuste táctico mayo:</strong> En Moderada y Agresiva, se <strong>aumentaron acciones en Asia Emergente, disminuyendo la exposición a acciones latinoamericanas</strong>. Corea del Sur y Taiwán destacan como alternativas beneficiadas por el boom en IA y semiconductores.</li>
+      <li>
+        <div class="op-label">Renta fija chilena</div>
+        <div class="op-text">Los fondos se han posicionado en duraciones intermedias y han <strong>disminuido la exposición a UF</strong> en los últimos dos meses, dado que observan menores presiones inflacionarias que las que el mercado tiene internalizadas. La cartera mantiene exposición a instrumentos reajustables.</div>
+      </li>
+      <li>
+        <div class="op-label">Renta variable</div>
+        <div class="op-text">Mantenemos sobreponderación en los fondos dinámicos, <strong>favoreciendo acciones tecnológicas en Estados Unidos y Asia Emergente</strong>. El entorno macroeconómico global y los fundamentales corporativos siguen favoreciendo la toma de riesgo en los portafolios.</div>
+      </li>
+      <li>
+        <div class="op-label">Ajuste táctico — mayo</div>
+        <div class="op-text">En Moderada y Agresiva se <strong>aumentaron acciones en Asia Emergente, disminuyendo la exposición a acciones latinoamericanas</strong>. Corea del Sur y Taiwán destacan como alternativas beneficiadas por el boom en inteligencia artificial y semiconductores.</div>
+      </li>
     </ul>
   </div>
 
