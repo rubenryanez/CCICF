@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+═══════════════════════════════════════════════════════════════
+  CÁPSULA COMERCIAL Y DE INVERSIONES — LarrainVial AM × Consorcio
+  ───────────────────────────────────────────────────────────────
+  Desarrollado por: Rubén Rodríguez Y.
+  Equipo: JCLVAM
+  Contacto: rubenryanez@gmail.com
+═══════════════════════════════════════════════════════════════
+-->
+
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -612,6 +622,90 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
 .sp-btn:hover::after { opacity: 1; }
 
 @media(max-width:768px){#sharePanel{display:none}}
+
+/* ═══ FAB MÓVIL — Compartibles en teléfono ═══════════════════ */
+#fabToggle { display: none; }
+@media (max-width: 768px) {
+  /* Industria: apilar gráficos y síntesis en una columna */
+  .ind-charts-grid { grid-template-columns: 1fr !important; }
+  .ind-syn-grid { grid-template-columns: 1fr !important; }
+  /* Ocultar la barra vertical de escritorio */
+  #sharePanel .sp-tab { display: none; }
+
+  /* Convertir el panel en menú flotante abajo-derecha */
+  #sharePanel {
+    right: 16px;
+    top: auto;
+    bottom: 84px;
+    transform: none;
+    gap: 10px;
+    align-items: flex-end;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .22s ease, transform .22s ease;
+    transform: translateY(8px);
+  }
+  #sharePanel.fab-open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Botones como píldoras circulares con etiqueta */
+  #sharePanel .sp-btn {
+    width: auto;
+    min-width: 150px;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 11px;
+    padding: 13px 18px;
+    border-radius: 30px;
+    border-left: none;
+    box-shadow: 0 6px 20px rgba(13,17,23,.28);
+  }
+  #sharePanel .sp-btn .sp-label { 
+    font-size: 13px; 
+    text-align: left; 
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+  #sharePanel .sp-btn .sp-label br { display: none; }
+  #sharePanel .sp-btn .sp-icon { margin: 0; }
+
+  /* El botón circular flotante (FAB) */
+  #fabToggle {
+    display: flex;
+    position: fixed;
+    right: 16px;
+    bottom: 20px;
+    z-index: 96;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background: #0D1117;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(13,17,23,.4);
+    cursor: pointer;
+    transition: transform .25s ease, background .2s ease;
+  }
+  #fabToggle:active { transform: scale(.92); }
+  #fabToggle.fab-active { background: var(--lv-red, #C8102E); transform: rotate(90deg); }
+  #fabToggle svg { width: 24px; height: 24px; transition: transform .25s ease; }
+
+  /* Backdrop sutil al abrir */
+  #fabBackdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(13,17,23,.18);
+    z-index: 94;
+    opacity: 0;
+    transition: opacity .22s ease;
+  }
+  #fabBackdrop.show { display: block; opacity: 1; }
+}
 </style>
 
 <div id="sharePanel">
@@ -651,6 +745,15 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
     <span class="sp-label">Correo<br>Cliente</span>
   </button>
 </div>
+
+<!-- FAB móvil: botón circular que despliega los compartibles en teléfono -->
+<div id="fabBackdrop" onclick="toggleFab(false)"></div>
+<button id="fabToggle" aria-label="Compartir" onclick="toggleFab()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+  </svg>
+</button>
 
 <!-- MAIL PREVIEW OVERLAY -->
 <div id="mailPreviewOverlay" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);" onclick="closeMailPreview(event)">
@@ -1344,6 +1447,106 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
       </tbody>
     </table>
   </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- FONDOS DINÁMICOS vs INDUSTRIA — Desempeño comparado          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="card" style="margin-top:22px">
+    <div class="card-title">🏆 Nuestros Fondos Dinámicos frente a la Industria</div>
+    <p style="font-size:13px;color:var(--mist);margin-bottom:6px;line-height:1.6">
+      Rentabilidad <strong>real acumulada a 36 meses</strong> de la Serie APV-AP, comparada con el promedio de la industria y cada AFP. Datos al 18 de junio de 2026.
+    </p>
+    <p style="font-size:11px;color:var(--fog);margin-bottom:18px">Fuente: dVAtools (información pública).</p>
+
+    <!-- Tabla comparativa -->
+    <div style="overflow-x:auto">
+    <table class="comp-table" style="min-width:760px">
+      <thead>
+        <tr>
+          <th style="text-align:left;width:20%">Fondo / Perfil</th>
+          <th style="background:#1E3A5C">LV Serie APV-AP</th>
+          <th>Prom. Industria</th>
+          <th>Capital</th>
+          <th>Cuprum</th>
+          <th>Habitat</th>
+          <th>Modelo</th>
+          <th>Provida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fund-name">Fondo A · Din. Agresivo</td>
+          <td style="background:rgba(30,58,92,.07);font-weight:800;color:#1E3A5C">48,64%</td>
+          <td style="color:var(--mist)">47,45%</td>
+          <td>47,64%</td><td>48,23%</td><td>47,16%</td><td>47,36%</td><td>46,88%</td>
+        </tr>
+        <tr>
+          <td class="fund-name">Fondo B · Din. Crecimiento</td>
+          <td style="background:rgba(30,58,92,.07);font-weight:800;color:#1E3A5C">37,19%</td>
+          <td style="color:var(--mist)">38,34%</td>
+          <td>38,60%</td><td>39,30%</td><td>38,05%</td><td>38,19%</td><td>37,57%</td>
+        </tr>
+        <tr>
+          <td class="fund-name">Fondo C · Din. Balanceado</td>
+          <td style="background:rgba(30,58,92,.07);font-weight:800;color:#1E3A5C">25,15%</td>
+          <td style="color:var(--mist)">24,01%</td>
+          <td>24,63%</td><td>24,84%</td><td>24,11%</td><td>24,13%</td><td>22,35%</td>
+        </tr>
+        <tr>
+          <td class="fund-name">Fondo D · Din. Moderado</td>
+          <td style="background:rgba(30,58,92,.07);font-weight:800;color:#1E3A5C">15,48%</td>
+          <td style="color:var(--mist)">11,67%</td>
+          <td>12,13%</td><td>12,41%</td><td>12,11%</td><td>11,10%</td><td>10,62%</td>
+        </tr>
+        <tr>
+          <td class="fund-name">Fondo E · Din. Conservador</td>
+          <td style="background:rgba(30,58,92,.07);font-weight:800;color:#1E3A5C">12,55%</td>
+          <td style="color:var(--mist)">4,89%</td>
+          <td>5,29%</td><td>5,68%</td><td>5,37%</td><td>3,79%</td><td>4,34%</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:10px;color:var(--fog);margin-top:8px">Rentabilidad real acumulada 36 meses, FFMM Serie APV-AP. Fuente: dVAtools (pública). La rentabilidad pasada no garantiza resultados futuros.</p>
+
+    <!-- Dos gráficos limpios -->
+    <div class="ind-charts-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px">
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">LV Serie APV-AP vs. Promedio Industria</div>
+        <div style="font-size:11px;color:var(--mist);margin-bottom:10px">Rentabilidad real acumulada 36M por perfil</div>
+        <div class="chart-container" style="height:300px"><canvas id="chartIndBars"></canvas></div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">Ventaja sobre el Promedio Industria</div>
+        <div style="font-size:11px;color:var(--mist);margin-bottom:10px">Diferencia en puntos porcentuales (pp)</div>
+        <div class="chart-container" style="height:300px"><canvas id="chartIndDiff"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Síntesis + argumentos -->
+    <div style="margin-top:24px;background:#0D1117;border-radius:10px;padding:22px 24px;color:#fff">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.5px;color:#74C69D;margin-bottom:10px">SÍNTESIS PARA LA CONVERSACIÓN CON EL CLIENTE</div>
+      <p style="font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.9);margin-bottom:18px">
+        Nuestros fondos dinámicos <strong style="color:#fff">superan al promedio de la industria en 4 de los 5 perfiles</strong>, y la ventaja es mayor justamente en los perfiles de menor riesgo. Esto no es producto del azar: refleja un <strong style="color:#fff">proceso de inversión consistente</strong> a lo largo de 36 meses.
+      </p>
+      <div class="ind-syn-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px 16px;border-left:3px solid #74C69D">
+          <div style="font-size:11px;font-weight:800;color:#74C69D;margin-bottom:6px">CONSISTENCIA</div>
+          <div style="font-size:12px;line-height:1.55;color:rgba(255,255,255,.85)">Ganamos al promedio industria en 4 de 5 perfiles. No destacamos en uno solo: la solidez es transversal y sostenida en el tiempo.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px 16px;border-left:3px solid #74C69D">
+          <div style="font-size:11px;font-weight:800;color:#74C69D;margin-bottom:6px">VALOR EN BAJO RIESGO</div>
+          <div style="font-size:12px;line-height:1.55;color:rgba(255,255,255,.85)">En el perfil Conservador rendimos <strong style="color:#fff">12,55% vs. 4,89%</strong> de la industria — agregamos valor real incluso donde el cliente busca proteger su capital.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px 16px;border-left:3px solid #74C69D">
+          <div style="font-size:11px;font-weight:800;color:#74C69D;margin-bottom:6px">MÁS DE 20 FONDOS</div>
+          <div style="font-size:12px;line-height:1.55;color:rgba(255,255,255,.85)">No solo dinámicos: contamos con <strong style="color:#fff">más de 20 fondos</strong> para construir carteras a medida — desde muy conservadoras hasta agresivas, como las de RF y Fidelización.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 </div><!-- end s-comparativo -->
 
@@ -2085,7 +2288,12 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
 
 <!-- DISCLAIMER -->
 <div class="disclaimer">
-  Infórmese de las características esenciales de la inversión en estos fondos, las que se encuentran contenidas en su reglamento interno y contrato de suscripción de cuotas. La rentabilidad o ganancia obtenida en el pasado por estos fondos no garantiza que ella se repita en el futuro. Los valores de las cuotas de los fondos son variables. Este material es de uso exclusivo interno para asesores de inversión. Sitio Web: www.lvassetmanagement.com — Contacto: aportesyrescates@larrainvial.com — 2 2339 8500. Datos al 31-05-2026. Fuente: LVAM. Simulación de cartera.
+  Infórmese de las características esenciales de la inversión en estos fondos, las que se encuentran contenidas en su reglamento interno y contrato de suscripción de cuotas. La rentabilidad o ganancia obtenida en el pasado por estos fondos no garantiza que ella se repita en el futuro. Los valores de las cuotas de los fondos son variables. Este material es de uso exclusivo interno para asesores de inversión. Sitio Web: www.lvassetmanagement.com
+</div>
+
+<!-- Crédito de autoría -->
+<div style="text-align:center;padding:14px 20px 22px;font-size:11px;color:var(--fog);font-family:'Nunito Sans',sans-serif;letter-spacing:.3px">
+  Desarrollado por equipo LVAM — RRY
 </div>
 
 <script>
@@ -2116,7 +2324,7 @@ function showTab(id){
   if(id==='mercado') initChartRetornos();
   if(id==='carteras') { initChartRF('chartRFCP',[90,10]); initChartRF('chartRFMP',[50,50]); initChartRF('chartRFLP',[70,30]); }
   if(id==='mixtas') { initMixCharts(); initChartEvol(); }
-  if(id==='comparativo') initChartComp();
+  if(id==='comparativo') { initChartComp(); initChartIndBars(); initChartIndDiff(); }
   if(id==='historico') initChartHist();
   animateBars();
 }
@@ -2695,6 +2903,96 @@ document.addEventListener('DOMContentLoaded', () => {
   initChartRetornos();
   animateBars();
 });
+
+
+// ═══ FONDOS DINÁMICOS vs INDUSTRIA — 2 gráficos ════════════════
+let chartIndBarsInst = null, chartIndDiffInst = null;
+const IND_LABELS = ['Agresivo','Crecimiento','Balanceado','Moderado','Conservador'];
+const IND_LV  = [48.64, 37.19, 25.15, 15.48, 12.55];
+const IND_PROM= [47.45, 38.34, 24.01, 11.67, 4.89];
+
+function initChartIndBars(){
+  const el = document.getElementById('chartIndBars');
+  if(!el) return;
+  if(chartIndBarsInst){ chartIndBarsInst.destroy(); chartIndBarsInst = null; }
+  chartIndBarsInst = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: IND_LABELS,
+      datasets: [
+        { label: 'LV Serie APV-AP', data: IND_LV, backgroundColor: '#1E3A5C', borderRadius: 4, barPercentage: 0.7, categoryPercentage: 0.7 },
+        { label: 'Promedio Industria', data: IND_PROM, backgroundColor: '#CBD5E1', borderRadius: 4, barPercentage: 0.7, categoryPercentage: 0.7 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 11, family: "'Nunito Sans'" }, color: '#334155', boxWidth: 12, padding: 14 } },
+        tooltip: {
+          backgroundColor: '#0D1117', padding: 11, cornerRadius: 6, titleFont: { size: 12 }, bodyFont: { size: 12 },
+          callbacks: { label: c => ' ' + c.dataset.label + ': ' + c.parsed.y.toLocaleString('es-CL', {minimumFractionDigits:2}) + '%' }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, grid: { color: 'rgba(241,245,249,.9)' }, ticks: { font: { size: 10 }, color: '#94A3B8', callback: v => v + '%' } },
+        x: { grid: { display: false }, ticks: { font: { size: 10.5, weight: '600' }, color: '#475569' } }
+      }
+    }
+  });
+}
+
+function initChartIndDiff(){
+  const el = document.getElementById('chartIndDiff');
+  if(!el) return;
+  if(chartIndDiffInst){ chartIndDiffInst.destroy(); chartIndDiffInst = null; }
+  const diff = IND_LV.map((v,i) => +(v - IND_PROM[i]).toFixed(2));
+  chartIndDiffInst = new Chart(el, {
+    type: 'bar',
+    data: {
+      labels: IND_LABELS,
+      datasets: [{
+        label: 'Ventaja sobre industria (pp)',
+        data: diff,
+        backgroundColor: diff.map(v => v >= 0 ? '#059669' : '#DC2626'),
+        borderRadius: 4, barPercentage: 0.6
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0D1117', padding: 11, cornerRadius: 6, titleFont: { size: 12 }, bodyFont: { size: 12 },
+          callbacks: { label: c => (c.parsed.x >= 0 ? ' +' : ' ') + c.parsed.x.toLocaleString('es-CL', {minimumFractionDigits:2}) + ' pp' }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(241,245,249,.9)' }, ticks: { font: { size: 10 }, color: '#94A3B8', callback: v => (v>=0?'+':'') + v + 'pp' } },
+        y: { grid: { display: false }, ticks: { font: { size: 10.5, weight: '600' }, color: '#475569' } }
+      }
+    }
+  });
+}
+
+// ═══ FAB MÓVIL — toggle del menú de compartibles ═══════════════
+function toggleFab(force){
+  var panel = document.getElementById('sharePanel');
+  var btn   = document.getElementById('fabToggle');
+  var bd    = document.getElementById('fabBackdrop');
+  if(!panel || !btn) return;
+  var open = (typeof force === 'boolean') ? force : !panel.classList.contains('fab-open');
+  panel.classList.toggle('fab-open', open);
+  btn.classList.toggle('fab-active', open);
+  if(bd) bd.classList.toggle('show', open);
+}
+// Cerrar el FAB tras elegir una opción de compartir (en móvil)
+['sp-pdf','sp-wa','sp-mail'].forEach(function(c){
+  document.querySelectorAll('.'+c).forEach(function(b){
+    b.addEventListener('click', function(){ setTimeout(function(){ toggleFab(false); }, 150); });
+  });
+});
+
 </script>
 </body>
 </html>
