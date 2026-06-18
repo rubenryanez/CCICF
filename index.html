@@ -414,6 +414,56 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
   background:var(--white);
 }
 </style>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   FIXES RESPONSIVE MÓVIL — vista completa en teléfonos
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* Evitar scroll horizontal de toda la página */
+  html, body { overflow-x: hidden; max-width: 100%; }
+
+  /* Secciones y cards con padding reducido para aprovechar ancho */
+  .section { padding: 28px 14px !important; }
+  .card { padding: 16px !important; }
+
+  /* Tablas: scroll horizontal propio para no romper el layout */
+  .comp-table { display: block; overflow-x: auto; width: 100%;
+                -webkit-overflow-scrolling: touch; white-space: nowrap; }
+  .comp-table thead, .comp-table tbody { display: table; width: 100%; min-width: 560px; }
+
+  /* Gráficos: altura adaptable y sin desbordar */
+  .chart-container { height: 260px !important; width: 100% !important; max-width: 100%; }
+  .chart-container canvas { max-width: 100% !important; }
+
+  /* Grids de 2 y 3 columnas colapsan a 1 */
+  .ind-charts-grid, .ind-syn-grid,
+  .news-grid, .grid-2, .grid-3, .frases-grid,
+  .cc-body, .hist-case, .recovery-grid { grid-template-columns: 1fr !important; }
+
+  /* Cualquier grid inline de 2-3 columnas dentro de cards */
+  [style*="grid-template-columns:1fr 1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr 1fr"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* Hero: texto y stats adaptados */
+  #hero { padding: 36px 18px !important; }
+  .hero-title { font-size: 26px !important; }
+  .hero-stats { flex-wrap: wrap; gap: 16px 22px; }
+
+  /* KPIs strip: dos columnas en pantallas chicas para verse completos */
+  .indicadores-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  .indic-card { padding: 12px !important; }
+
+  /* Tabs de navegación ya tienen scroll vía .nav-inner — reforzar */
+  #mainnav .nav-inner { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Imágenes y contenedores nunca exceden el ancho */
+  img, svg, canvas, table { max-width: 100%; }
+}
+</style>
 </head>
 <body>
 
@@ -621,7 +671,6 @@ body{font-family:'Nunito Sans',sans-serif;background:#F4F5F7;color:var(--ink);ov
 .sp-btn:hover::before,
 .sp-btn:hover::after { opacity: 1; }
 
-@media(max-width:768px){#sharePanel{display:none}}
 
 /* ═══ FAB MÓVIL — Compartibles en teléfono ═══════════════════ */
 #fabToggle { display: none; }
